@@ -80,7 +80,7 @@ pub enum C1Token {
     ConstBoolean,
     #[regex(r#"\\"[^"\\n]*\\""#)]
     ConstString,
-    #[regex(r#"[a-zA-Z]+[0-9]|[a-zA-Z]*"#)]
+    #[regex("[a-zA-Z]+[0-9]|[a-zA-Z]*")]
     Id,
 
     //"Pseudotoken" (nur zur Konstruktion anderer Token)
@@ -95,7 +95,7 @@ pub enum C1Token {
 
 
     //Comment skipping
-    #[regex(r"[ \t\n\f]+", logos::skip)]
+    #[regex(r"[ \t\n\f\r]+", logos::skip)]
     #[regex(r"/\*([^*]|\*[^/])*\*/", logos::skip)]
     #[regex(r"//.*", logos::skip)]
 
