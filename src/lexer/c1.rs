@@ -80,7 +80,7 @@ pub enum C1Token {
     ConstBoolean,
     #[regex(r#"\\"[^"\\n]*\\""#)]
     ConstString,
-    #[regex("[a-zA-Z]+[0-9]|[a-zA-Z]*")]
+    #[regex("[a-zA-Z]+([0-9]|[a-zA-Z])*")]
     Id,
 
     //"Pseudotoken" (nur zur Konstruktion anderer Token)
@@ -90,7 +90,7 @@ pub enum C1Token {
     Integer,
     #[regex(r#"(\d+\.\d+)|(\.\d+)"#)]
     Float,
-    #[regex("[a-zA-Z]")]
+    #[regex("[a-zA-Z]", priority = 2)]
     Letter,
 
 
