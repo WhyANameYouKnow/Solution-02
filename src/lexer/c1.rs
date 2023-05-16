@@ -76,22 +76,23 @@ pub enum C1Token {
     Digit,
     #[token("[0-9]]+")]
     Integer,
-    #[regex(r#"(\d+\.\d+)|(\.\d+)"#)]
+    #[regex(r#"(\d+\.\d+)|(\.\d+)"#, priority = 3)]
     Float,
-    #[regex("[a-zA-Z]", priority = 2)]
+    #[regex("[a-zA-Z]")]
     Letter,
 
     //Termvariablen
+    #[regex("[a-zA-Z]+([0-9]|[a-zA-Z])*", priority = 2)]
+    Id,
     #[regex(r#"[0-9]+"#, priority = 2)]
     ConstInt,
-    #[regex(r#"(\d+\.\d+)|(\.\d+)([eE]([-+])?[0-9]+)?"#, priority = 2)]
+    #[regex(r#"(\d+\.\d+)|(\.\d+)([eE]([-+])?[0-9]+)?"#, priority = 4)]
     ConstFloat,
     #[regex(r#"(true|false)"#)]
     ConstBoolean,
     #[regex(r#"\\"[^"\\n]*\\""#)]
     ConstString,
-    #[regex("[a-zA-Z]+([0-9]|[a-zA-Z])*")]
-    Id,
+
 
     //Comment skipping
     #[regex(r"[ \t\n\f\r]+", logos::skip)]
