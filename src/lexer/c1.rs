@@ -71,6 +71,16 @@ pub enum C1Token {
     #[token("}")]
     RBrace,
 
+    //"Pseudotoken" (nur zur Konstruktion anderer Token)
+    #[regex("[0-9]")]
+    Digit,
+    #[token("[0-9]]+")]
+    Integer,
+    #[regex(r#"(\d+\.\d+)|(\.\d+)"#)]
+    Float,
+    #[regex("[a-zA-Z]", priority = 2)]
+    Letter,
+
     //Termvariablen
     #[regex(r#"[0-9]+"#, priority = 2)]
     ConstInt,
@@ -82,17 +92,6 @@ pub enum C1Token {
     ConstString,
     #[regex("[a-zA-Z]+([0-9]|[a-zA-Z])*")]
     Id,
-
-    //"Pseudotoken" (nur zur Konstruktion anderer Token)
-    #[regex("[0-9]")]
-    Digit,
-    #[token("[0-9]]+")]
-    Integer,
-    #[regex(r#"(\d+\.\d+)|(\.\d+)"#)]
-    Float,
-    #[regex("[a-zA-Z]", priority = 2)]
-    Letter,
-
 
     //Comment skipping
     #[regex(r"[ \t\n\f\r]+", logos::skip)]
