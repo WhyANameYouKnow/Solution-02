@@ -1,5 +1,4 @@
 use logos::Logos;
-use std::fs;
 use std::str;
 
 #[derive(Logos, Debug, PartialEq)]
@@ -8,98 +7,99 @@ pub enum C1Token {
 
     //Schluesselwoerter
     #[token("bool")]
-    KW_BOOLEAN,
+    KwBoolean,
     #[token("do")]
-    KW_DO,
+    KwDo,
     #[token("else")]
-    KW_ELSE,
+    KwElse,
     #[token("float")]
-    KW_FLOAT,
+    KwFloat,
     #[token("for")]
-    KW_FOR,
+    KwFor,
     #[token("if")]
-    KW_IF,
+    KwIf,
     #[token("int")]
-    KW_INT,
+    KwInt,
     #[token("printf")]
-    KW_PRINTF,
+    KwPrintf,
     #[token("return")]
-    KW_RETURN,
+    KwReturn,
     #[token("void")]
-    KW_VOID,
+    KwVoid,
     #[token("while")]
-    KW_WHILE,
+    KwWhile,
 
     //Operatoren
     #[token("+")]
-    PLUS,
+    Plus,
     #[token("-")]
-    MINUS,
+    Minus,
     #[token("*")]
-    ASTERISK,
+    Asterisk,
     #[token("/")]
-    SLASH,
+    Slash,
     #[token("=")]
-    ASSIGN,
+    Assign,
     #[token("==")]
-    EQ,
+    Eq,
     #[token("!=")]
-    NEQ,
+    Neq,
     #[token("<")]
-    LSS,
+    Lss,
     #[token(">")]
-    GRT,
+    Grt,
     #[token("<=")]
-    LEQ,
+    Leq,
     #[token(">=")]
-    GEQ,
+    Geq,
     #[token("&&")]
-    AND,
+    And,
     #[token("||")]
-    OR,
+    Or,
 
     //Sonstige Token
     #[token(",")]
-    COMMA,
+    Comma,
     #[token(";")]
-    SEMICOLON,
+    Semicolon,
     #[token("(")]
-    LPAREN,
+    LParen,
     #[token(")")]
-    RPAREN,
+    RParen,
     #[token("{")]
-    LBRACE,
+    LBrace,
     #[token("}")]
-    RBRACE,
+    RBrace,
 
     //Termvariablen
-    #[token("{INTEGER}")]
-    CONST_INT,
-    #[token("{FLOAT} ( [eE] ([-+])? {INTEGER} )?\
-        | {INTEGER} [eE] ([-+])? {INTEGER}")]
-    CONST_FLOAT,
+    #[regex(r#"[0-9]+"#, priority = 2)]
+    ConstInt,
+    #[regex(r#"(\d+\.\d+)|(\.\d+)([eE]([-+])?[0-9]+)?"#, priority = 2)]
+    ConstFloat,
     #[regex(r#"(true|false)"#)]
-    CONST_BOOLEAN,
+    ConstBoolean,
     #[regex(r#"\\"[^"\\n]*\\""#)]
-    CONST_STRING,
-    #[token("({LETTER})+ ({DIGIT} | {LETTER})*")]
-    ID,
+    ConstString,
+    #[regex(r#"[a-zA-Z]+[0-9]|[a-zA-Z]*"#)]
+    Id,
 
     //"Pseudotoken" (nur zur Konstruktion anderer Token)
     #[regex("[0-9]")]
-    DIGIT,
-    #[token("{DIGIT}+")]
-    INTEGER,
+    Digit,
+    #[token("[0-9]]+")]
+    Integer,
     #[regex(r#"(\d+\.\d+)|(\.\d+)"#)]
-    FLOAT,
+    Float,
     #[regex("[a-zA-Z]")]
-    LETTER,
+    Letter,
 
 
-    // Error handling and comment skipping
-    #[error]
+    //Comment skipping
     #[regex(r"[ \t\n\f]+", logos::skip)]
     #[regex(r"/\*([^*]|\*[^/])*\*/", logos::skip)]
     #[regex(r"//.*", logos::skip)]
+
+    //Error handling
+    #[error]
     Error,
 }
