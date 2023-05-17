@@ -6,27 +6,27 @@ pub enum C1Token {
     //Defines variants and their token/regex.
 
     //Schluesselwoerter
-    #[token("bool")]
+    #[token("bool", priority = 5)]
     KwBoolean,
-    #[token("do")]
+    #[token("do", priority = 3)]
     KwDo,
-    #[token("else")]
+    #[token("else", priority = 5)]
     KwElse,
-    #[token("float")]
+    #[token("float", priority = 5)]
     KwFloat,
-    #[token("for")]
+    #[token("for", priority = 3)]
     KwFor,
-    #[token("if")]
+    #[token("if", priority = 5)]
     KwIf,
-    #[token("int")]
+    #[token("int", priority = 3)]
     KwInt,
-    #[token("printf")]
+    #[token("printf", priority = 3)]
     KwPrintf,
-    #[token("return")]
+    #[token("return", priority = 5)]
     KwReturn,
-    #[token("void")]
+    #[token("void", priority = 3)]
     KwVoid,
-    #[token("while")]
+    #[token("while", priority = 3)]
     KwWhile,
 
     //Operatoren
@@ -72,27 +72,26 @@ pub enum C1Token {
     RBrace,
 
     //"Pseudotoken" (nur zur Konstruktion anderer Token)
-    #[regex("[0-9]")]
+    #[regex("[0-9]", priority = 2)]
     Digit,
-    #[token("[0-9]]+")]
+    #[regex("[0-9]+", priority = 4)]
     Integer,
-    #[regex(r#"(\d+\.\d+)|(\.\d+)"#, priority = 2)]
+    #[regex(r#"(\d+\.\d+)|(\.\d+)"#, priority = 1)]
     Float,
-    #[regex("[a-zA-Z]")]
+    #[regex("[a-zA-Z]", priority = 3)]
     Letter,
 
     //Termvariablen
-    #[regex("[a-zA-Z]+([0-9]|[a-zA-Z])*", priority = 2)]
-    Id,
-    #[regex(r#"[0-9]+"#, priority = 3)]
-    ConstInt,
-    #[regex(r#"(\d+\.\d+)|(\.\d+)([eE]([-+])?[0-9]+)?"#, priority = 4)]
+    #[regex(r#"(\d+\.\d+)|(\.\d+)([eE]([-+])?[0-9]+)?"#, priority = 3)]
     ConstFloat,
+    #[regex("[0-9]+", priority = 5)]
+    ConstInt,
     #[regex(r#"(true|false)"#)]
     ConstBoolean,
     #[regex(r#"\\"[^"\\n]*\\""#)]
     ConstString,
-
+    #[regex("[a-zA-Z]+([0-9]|[a-zA-Z])*", priority = 4)]
+    Id,
 
     //Comment skipping
     #[regex(r"[ \t\n\f\r]+", logos::skip)]
