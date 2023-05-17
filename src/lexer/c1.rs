@@ -76,25 +76,13 @@ pub enum C1Token {
     Digit,
     #[regex("[0-9]+", priority = 4)]
     Integer,
-<<<<<<< HEAD
     #[regex(r#"(\d+\.\d+)|(\.\d+)"#, priority = 1)]
-=======
-    #[regex(r#"(\d+\.\d+)|(\.\d+)"#, priority = 2)]
->>>>>>> 6863b0344ac80cadc46440c175c88388b97cd14e
     Float,
     #[regex("[a-zA-Z]", priority = 3)]
     Letter,
 
     //Termvariablen
-<<<<<<< HEAD
-    #[regex(r#"(\d+\.\d+)|(\.\d+)([eE]([-+])?[0-9]+)?"#, priority = 3)]
-=======
-    #[regex("[a-zA-Z]+([0-9]|[a-zA-Z])*", priority = 2)]
-    Id,
-    #[regex(r#"[0-9]+"#, priority = 3)]
-    ConstInt,
     #[regex(r#"(\d+\.\d+)|(\.\d+)([eE]([-+])?[0-9]+)?"#, priority = 4)]
->>>>>>> 6863b0344ac80cadc46440c175c88388b97cd14e
     ConstFloat,
     #[regex("[0-9]+", priority = 5)]
     ConstInt,
